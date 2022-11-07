@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 	"strings"
+	"unsafe"
 )
 
 /**
@@ -84,4 +85,20 @@ func InterfaceToStr(value interface{}) (s string) {
 	}
 
 	return key
+}
+
+/**
+* string 转 []byte
+ */
+func StrToByteSlice(str string) []byte {
+	tmp := (*[2]uintptr)(unsafe.Pointer(&str))
+
+	return *(*[]byte)(unsafe.Pointer(&[3]uintptr{tmp[0], tmp[1], tmp[1]}))
+}
+
+/**
+* []byte 转 string
+ */
+func ByteSliceToString(bt []byte) string {
+	return *(*string)(unsafe.Pointer(&bt))
 }
