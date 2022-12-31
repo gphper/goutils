@@ -39,3 +39,41 @@ func TestArrColumn(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestUnset(t *testing.T) {
+
+	cases1 := []struct {
+		items []int
+		item  int
+		want  []int
+	}{
+		{[]int{1, 2, 3, 4}, 2, []int{1, 3, 4}},
+		{[]int{1, 2, 3, 4}, 1, []int{2, 3, 4}},
+		{[]int{1, 2, 3, 4}, 4, []int{1, 2, 3}},
+	}
+
+	for _, v := range cases1 {
+		result := Unset[int](v.items, v.item)
+		if !reflect.DeepEqual(result, v.want) {
+			t.Errorf("items %+v,item %d,want %+v,actual %+v", v.items, v.item, v.want, result)
+		}
+	}
+
+	cases2 := []struct {
+		items []string
+		item  string
+		want  []string
+	}{
+		{[]string{"a", "b", "c"}, "a", []string{"b", "c"}},
+		{[]string{"a", "b", "c"}, "b", []string{"a", "c"}},
+		{[]string{"a", "b", "c"}, "c", []string{"a", "b"}},
+	}
+
+	for _, v := range cases2 {
+		result := Unset[string](v.items, v.item)
+		if !reflect.DeepEqual(result, v.want) {
+			t.Errorf("items %+v,item %s,want %+v,actual %+v", v.items, v.item, v.want, result)
+		}
+	}
+
+}

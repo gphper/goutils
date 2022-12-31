@@ -34,3 +34,19 @@ func ArrColumn(arr interface{}, fieldName string) (result []interface{}, err err
 
 	return
 }
+
+// 删除指定元素
+func Unset[T int | string](items []T, item T) []T {
+	result := make([]T, len(items)-1)
+
+	m := 0
+	for i := 0; i < len(items); i++ {
+		if items[i] == item {
+			continue
+		}
+		result[m] = items[i]
+		m++
+	}
+
+	return result
+}
