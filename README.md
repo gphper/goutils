@@ -8,3 +8,6 @@
 
 ## arrutil
 *   ArrColumn：获取切片或数组对象中指定字段值，并返回切片
+
+## timeutil
+*   YMD YMDHIS HID 预设时间格式常量
